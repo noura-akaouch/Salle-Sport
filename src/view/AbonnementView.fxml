@@ -3,17 +3,76 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox alignment="CENTER" spacing="10"
-      xmlns:fx="http://javafx.com/fxml">
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controller.AbonnementController">
 
-    <Label text="Gestion des abonnements"/>
+    <top>
 
-    <TextField promptText="Type d'abonnement"/>
+        <VBox spacing="10">
 
-    <TextField promptText="Prix"/>
+            <Label text="Gestion des abonnements"/>
 
-    <TextField promptText="Durée"/>
+            <GridPane hgap="10" vgap="10">
 
-    <Button text="Ajouter"/>
+                <Label text="Membre"/>
+                <ComboBox fx:id="cmbMembre"
+                          GridPane.rowIndex="0"
+                          GridPane.columnIndex="1"/>
 
-</VBox>
+                <Label text="Type"
+                       GridPane.rowIndex="1"/>
+
+                <ComboBox fx:id="cmbType"
+                          GridPane.rowIndex="1"
+                          GridPane.columnIndex="1"/>
+
+                <Label text="Date début"
+                       GridPane.rowIndex="2"/>
+
+                <DatePicker fx:id="dateDebut"
+                            GridPane.rowIndex="2"
+                            GridPane.columnIndex="1"/>
+
+                <Label text="Date fin"
+                       GridPane.rowIndex="3"/>
+
+                <DatePicker fx:id="dateFin"
+                            GridPane.rowIndex="3"
+                            GridPane.columnIndex="1"/>
+
+                <Label text="Statut"
+                       GridPane.rowIndex="4"/>
+
+                <ComboBox fx:id="cmbStatut"
+                          GridPane.rowIndex="4"
+                          GridPane.columnIndex="1"/>
+
+            </GridPane>
+
+            <HBox spacing="10">
+
+                <Button text="Ajouter"
+                        onAction="#ajouterAbonnement"/>
+
+                <Button text="Modifier"
+                        onAction="#modifierAbonnement"/>
+
+                <Button text="Supprimer"
+                        onAction="#supprimerAbonnement"/>
+
+                <Button text="Exporter CSV"
+                        onAction="#exporterCSV"/>
+
+            </HBox>
+
+        </VBox>
+
+    </top>
+
+    <center>
+
+        <TableView fx:id="tableAbonnement"/>
+
+    </center>
+
+</BorderPane>

@@ -3,12 +3,13 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" spacing="20"
-      xmlns:fx="http://javafx.com/fxml"
-      prefWidth="600"
-      prefHeight="400">
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="controller.DashboardController"
+      alignment="CENTER"
+      spacing="20">
 
     <padding>
         <Insets top="20" right="20" bottom="20" left="20"/>
@@ -16,8 +17,38 @@
 
     <Label text="Tableau de bord - Salle de sport"/>
 
-    <Label text="Statistiques"/>
+    <GridPane hgap="30" vgap="20">
 
-    <PieChart fx:id="pieChart"/>
+        <Label text="Total Membres :" />
+
+        <Label fx:id="lblTotalMembres"
+               GridPane.columnIndex="1"/>
+
+        <Label text="Total Abonnements :"
+               GridPane.rowIndex="1"/>
+
+        <Label fx:id="lblTotalAbonnements"
+               GridPane.rowIndex="1"
+               GridPane.columnIndex="1"/>
+
+        <Label text="Abonnements Actifs :"
+               GridPane.rowIndex="2"/>
+
+        <Label fx:id="lblActifs"
+               GridPane.rowIndex="2"
+               GridPane.columnIndex="1"/>
+
+        <Label text="Abonnements Expirés :"
+               GridPane.rowIndex="3"/>
+
+        <Label fx:id="lblExpires"
+               GridPane.rowIndex="3"
+               GridPane.columnIndex="1"/>
+
+    </GridPane>
+
+    <PieChart fx:id="pieChart"
+              prefHeight="350"
+              prefWidth="500"/>
 
 </VBox>
