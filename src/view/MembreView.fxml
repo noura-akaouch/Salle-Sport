@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            prefWidth="1100.0" prefHeight="680.0"
+            style="-fx-background-color: #f4f6f9;">
+
+    <!-- ═══ HEADER ═══ -->
+    <top>
+        <HBox alignment="CENTER_LEFT"
+              style="-fx-background-color: #1a1a2e; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 8, 0, 0, 2);">
+            <padding><Insets top="16" right="28" bottom="16" left="28"/></padding>
+            <Label text="🏋️  SportManager — Salle de Sport"
+                   style="-fx-text-fill: #ffffff; -fx-font-size: 20px; -fx-font-weight: bold; -fx-font-family: 'Segoe UI';"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Label text="v1.0"
+                   style="-fx-text-fill: #a0aec0; -fx-font-size: 12px; -fx-font-family: 'Segoe UI';"/>
+        </HBox>
+    </top>
+
+    <!-- ═══ CONTENU PRINCIPAL ═══ -->
+    <center>
+        <TabPane tabClosingPolicy="UNAVAILABLE"
+                 style="-fx-background-color: transparent; -fx-tab-min-height: 42px; -fx-font-family: 'Segoe UI'; -fx-font-size: 13px;">
+            <padding><Insets top="12" right="16" bottom="16" left="16"/></padding>
+
+            <!-- ── Onglet Membres ── -->
+            <Tab text="👤  Membres">
+                <fx:include source="MembreView.fxml"/>
+            </Tab>
+
+            <!-- ── Onglet Abonnements ── -->
+            <Tab text="📋  Abonnements">
+                <VBox alignment="CENTER" spacing="16"
+                      style="-fx-background-color: #ffffff; -fx-background-radius: 12;
+                             -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 12, 0, 0, 4);">
+                    <padding><Insets top="60" right="40" bottom="60" left="40"/></padding>
+
+                    <Label text="📋"
+                           style="-fx-font-size: 48px;"/>
+                    <Label text="Module Abonnements"
+                           style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #2d3748; -fx-font-family: 'Segoe UI';"/>
+                    <Label text="Ce module sera disponible prochainement."
+                           style="-fx-font-size: 14px; -fx-text-fill: #a0aec0; -fx-font-family: 'Segoe UI'; -fx-font-style: italic;"/>
+                </VBox>
+            </Tab>
+
+            <!-- ── Onglet Dashboard ── -->
+            <Tab text="📊  Dashboard">
+                <VBox alignment="CENTER" spacing="16"
+                      style="-fx-background-color: #ffffff; -fx-background-radius: 12;
+                             -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 12, 0, 0, 4);">
+                    <padding><Insets top="60" right="40" bottom="60" left="40"/></padding>
+
+                    <Label text="📊"
+                           style="-fx-font-size: 48px;"/>
+                    <Label text="Statistiques"
+                           style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #2d3748; -fx-font-family: 'Segoe UI';"/>
+                    <Label text="Les statistiques et graphiques seront affichés ici."
+                           style="-fx-font-size: 14px; -fx-text-fill: #a0aec0; -fx-font-family: 'Segoe UI'; -fx-font-style: italic;"/>
+                </VBox>
+            </Tab>
+
+        </TabPane>
+    </center>
+
+    <!-- ═══ STATUS BAR ═══ -->
+    <bottom>
+        <HBox alignment="CENTER_LEFT"
+              style="-fx-background-color: #edf2f7; -fx-border-color: #e2e8f0 transparent transparent transparent;">
+            <padding><Insets top="7" right="20" bottom="7" left="20"/></padding>
+            <Label text="● Application prête"
+                   style="-fx-text-fill: #48bb78; -fx-font-size: 11px; -fx-font-family: 'Segoe UI'; -fx-font-weight: bold;"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Label text="SportManager © 2025"
+                   style="-fx-text-fill: #a0aec0; -fx-font-size: 11px; -fx-font-family: 'Segoe UI';"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>

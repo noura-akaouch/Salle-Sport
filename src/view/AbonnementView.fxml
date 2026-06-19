@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" spacing="10"
+      xmlns:fx="http://javafx.com/fxml">
+
+    <Label text="Gestion des abonnements"/>
+
+    <TextField promptText="Type d'abonnement"/>
+
+    <TextField promptText="Prix"/>
+
+    <TextField promptText="Durée"/>
+
+    <Button text="Ajouter"/>
+
+</VBox>
