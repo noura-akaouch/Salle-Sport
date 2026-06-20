@@ -3,52 +3,93 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.*?>
 
-<VBox xmlns:fx="http://javafx.com/fxml"
-      fx:controller="controller.DashboardController"
-      alignment="CENTER"
-      spacing="20">
+<BorderPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controller.DashboardController"
+            prefWidth="1000.0" prefHeight="620.0"
+            style="-fx-background-color: #f4f6f9;">
 
-    <padding>
-        <Insets top="20" right="20" bottom="20" left="20"/>
-    </padding>
+    <top>
+        <HBox alignment="CENTER_LEFT"
+              style="-fx-background-color: #1a1a2e;">
+            <padding><Insets top="16" right="24" bottom="16" left="24"/></padding>
+            <Label text="📊  Tableau de bord"
+                   style="-fx-text-fill: #ffffff; -fx-font-size: 20px; -fx-font-weight: bold;"/>
+        </HBox>
+    </top>
 
-    <Label text="Tableau de bord - Salle de sport"/>
+    <center>
+        <VBox spacing="20" alignment="TOP_CENTER">
+            <padding><Insets top="24" right="24" bottom="24" left="24"/></padding>
 
-    <GridPane hgap="30" vgap="20">
+            <!-- Cartes statistiques -->
+            <HBox spacing="16" alignment="CENTER">
 
-        <Label text="Total Membres :" />
+                <!-- Total membres -->
+                <VBox alignment="CENTER" spacing="6" prefWidth="200"
+                      style="-fx-background-color: #ffffff; -fx-background-radius: 12;
+                             -fx-border-color: #e2e8f0; -fx-border-radius: 12; -fx-padding: 20;">
+                    <Label text="👥  Total Membres"
+                           style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #718096;"/>
+                    <Label fx:id="lblTotalMembres" text="—"
+                           style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: #2b6cb0;"/>
+                </VBox>
 
-        <Label fx:id="lblTotalMembres"
-               GridPane.columnIndex="1"/>
+                <!-- Total abonnements -->
+                <VBox alignment="CENTER" spacing="6" prefWidth="200"
+                      style="-fx-background-color: #ffffff; -fx-background-radius: 12;
+                             -fx-border-color: #e2e8f0; -fx-border-radius: 12; -fx-padding: 20;">
+                    <Label text="📋  Total Abonnements"
+                           style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #718096;"/>
+                    <Label fx:id="lblTotalAbonnements" text="—"
+                           style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: #6b46c1;"/>
+                </VBox>
 
-        <Label text="Total Abonnements :"
-               GridPane.rowIndex="1"/>
+                <!-- Actifs -->
+                <VBox alignment="CENTER" spacing="6" prefWidth="200"
+                      style="-fx-background-color: #ffffff; -fx-background-radius: 12;
+                             -fx-border-color: #e2e8f0; -fx-border-radius: 12; -fx-padding: 20;">
+                    <Label text="✅  Actifs"
+                           style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #718096;"/>
+                    <Label fx:id="lblActifs" text="—"
+                           style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: #276749;"/>
+                </VBox>
 
-        <Label fx:id="lblTotalAbonnements"
-               GridPane.rowIndex="1"
-               GridPane.columnIndex="1"/>
+                <!-- Expirés -->
+                <VBox alignment="CENTER" spacing="6" prefWidth="200"
+                      style="-fx-background-color: #ffffff; -fx-background-radius: 12;
+                             -fx-border-color: #e2e8f0; -fx-border-radius: 12; -fx-padding: 20;">
+                    <Label text="❌  Expirés"
+                           style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #718096;"/>
+                    <Label fx:id="lblExpires" text="—"
+                           style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: #c53030;"/>
+                </VBox>
 
-        <Label text="Abonnements Actifs :"
-               GridPane.rowIndex="2"/>
+                <!-- Revenus -->
+                <VBox alignment="CENTER" spacing="6" prefWidth="200"
+                      style="-fx-background-color: #ffffff; -fx-background-radius: 12;
+                             -fx-border-color: #e2e8f0; -fx-border-radius: 12; -fx-padding: 20;">
+                    <Label text="💰  Revenus (MAD)"
+                           style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #718096;"/>
+                    <Label fx:id="lblRevenus" text="—"
+                           style="-fx-font-size: 26px; -fx-font-weight: bold; -fx-text-fill: #d97706;"/>
+                </VBox>
 
-        <Label fx:id="lblActifs"
-               GridPane.rowIndex="2"
-               GridPane.columnIndex="1"/>
+            </HBox>
 
-        <Label text="Abonnements Expirés :"
-               GridPane.rowIndex="3"/>
+            <!-- PieChart -->
+            <VBox alignment="CENTER" VBox.vgrow="ALWAYS"
+                  style="-fx-background-color: #ffffff; -fx-background-radius: 12;
+                         -fx-border-color: #e2e8f0; -fx-border-radius: 12; -fx-padding: 16;">
+                <Label text="Répartition des abonnements"
+                       style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #2d3748;"/>
+                <PieChart fx:id="pieChart" prefHeight="380" prefWidth="600"
+                          legendVisible="true"/>
+            </VBox>
 
-        <Label fx:id="lblExpires"
-               GridPane.rowIndex="3"
-               GridPane.columnIndex="1"/>
+        </VBox>
+    </center>
 
-    </GridPane>
-
-    <PieChart fx:id="pieChart"
-              prefHeight="350"
-              prefWidth="500"/>
-
-</VBox>
+</BorderPane>

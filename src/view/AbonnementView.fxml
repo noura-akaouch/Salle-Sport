@@ -1,78 +1,173 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml"
-            fx:controller="controller.AbonnementController">
+<BorderPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controller.AbonnementController"
+            prefWidth="1000.0" prefHeight="620.0"
+            style="-fx-background-color: #f4f6f9;">
 
     <top>
-
-        <VBox spacing="10">
-
-            <Label text="Gestion des abonnements"/>
-
-            <GridPane hgap="10" vgap="10">
-
-                <Label text="Membre"/>
-                <ComboBox fx:id="cmbMembre"
-                          GridPane.rowIndex="0"
-                          GridPane.columnIndex="1"/>
-
-                <Label text="Type"
-                       GridPane.rowIndex="1"/>
-
-                <ComboBox fx:id="cmbType"
-                          GridPane.rowIndex="1"
-                          GridPane.columnIndex="1"/>
-
-                <Label text="Date début"
-                       GridPane.rowIndex="2"/>
-
-                <DatePicker fx:id="dateDebut"
-                            GridPane.rowIndex="2"
-                            GridPane.columnIndex="1"/>
-
-                <Label text="Date fin"
-                       GridPane.rowIndex="3"/>
-
-                <DatePicker fx:id="dateFin"
-                            GridPane.rowIndex="3"
-                            GridPane.columnIndex="1"/>
-
-                <Label text="Statut"
-                       GridPane.rowIndex="4"/>
-
-                <ComboBox fx:id="cmbStatut"
-                          GridPane.rowIndex="4"
-                          GridPane.columnIndex="1"/>
-
-            </GridPane>
-
-            <HBox spacing="10">
-
-                <Button text="Ajouter"
-                        onAction="#ajouterAbonnement"/>
-
-                <Button text="Modifier"
-                        onAction="#modifierAbonnement"/>
-
-                <Button text="Supprimer"
-                        onAction="#supprimerAbonnement"/>
-
-                <Button text="Exporter CSV"
-                        onAction="#exporterCSV"/>
-
-            </HBox>
-
-        </VBox>
-
+        <HBox alignment="CENTER_LEFT"
+              style="-fx-background-color: #1a1a2e;">
+            <padding><Insets top="16" right="24" bottom="16" left="24"/></padding>
+            <Label text="📋  Gestion des Abonnements"
+                   style="-fx-text-fill: #ffffff; -fx-font-size: 20px; -fx-font-weight: bold;"/>
+        </HBox>
     </top>
 
     <center>
+        <SplitPane dividerPositions="0.35"
+                   style="-fx-background-color: transparent; -fx-padding: 16;">
 
-        <TableView fx:id="tableAbonnement"/>
+            <!-- GAUCHE : Formulaire -->
+            <VBox spacing="0"
+                  style="-fx-background-color: #ffffff; -fx-background-radius: 12;">
 
+                <HBox style="-fx-background-color: #16213e; -fx-background-radius: 12 12 0 0;">
+                    <padding><Insets top="14" right="20" bottom="14" left="20"/></padding>
+                    <Label text="Détails de l'abonnement"
+                           style="-fx-text-fill: #e0e0e0; -fx-font-size: 13px; -fx-font-weight: bold;"/>
+                </HBox>
+
+                <VBox spacing="14">
+                    <padding><Insets top="22" right="22" bottom="10" left="22"/></padding>
+
+                    <!-- Membre -->
+                    <VBox spacing="5">
+                        <Label text="Membre"
+                               style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #4a5568;"/>
+                        <ComboBox fx:id="cmbMembre" maxWidth="Infinity"
+                                  promptText="Sélectionner un membre"
+                                  style="-fx-font-size: 13px;"/>
+                    </VBox>
+
+                    <!-- Type -->
+                    <VBox spacing="5">
+                        <Label text="Type d'abonnement"
+                               style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #4a5568;"/>
+                        <ComboBox fx:id="cmbType" maxWidth="Infinity"
+                                  promptText="Sélectionner un type"
+                                  style="-fx-font-size: 13px;"/>
+                    </VBox>
+
+                    <!-- Date début -->
+                    <VBox spacing="5">
+                        <Label text="Date de début"
+                               style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #4a5568;"/>
+                        <DatePicker fx:id="dateDebut" maxWidth="Infinity"
+                                    promptText="jj/mm/aaaa"
+                                    style="-fx-font-size: 13px;"/>
+                    </VBox>
+
+                    <!-- Date fin -->
+                    <VBox spacing="5">
+                        <Label text="Date de fin"
+                               style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #4a5568;"/>
+                        <DatePicker fx:id="dateFin" maxWidth="Infinity"
+                                    promptText="jj/mm/aaaa"
+                                    style="-fx-font-size: 13px;"/>
+                    </VBox>
+
+                    <!-- Statut -->
+                    <VBox spacing="5">
+                        <Label text="Statut"
+                               style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #4a5568;"/>
+                        <ComboBox fx:id="cmbStatut" maxWidth="Infinity"
+                                  promptText="Sélectionner un statut"
+                                  style="-fx-font-size: 13px;"/>
+                    </VBox>
+
+                </VBox>
+
+                <Region VBox.vgrow="ALWAYS"/>
+
+                <!-- Boutons -->
+                <VBox style="-fx-background-color: #f7fafc; -fx-background-radius: 0 0 12 12;">
+                    <padding><Insets top="16" right="20" bottom="18" left="20"/></padding>
+                    <GridPane hgap="10" vgap="10">
+                        <columnConstraints>
+                            <ColumnConstraints hgrow="ALWAYS" percentWidth="50"/>
+                            <ColumnConstraints hgrow="ALWAYS" percentWidth="50"/>
+                        </columnConstraints>
+                        <Button text="＋  Ajouter" maxWidth="Infinity"
+                                onAction="#ajouterAbonnement"
+                                style="-fx-background-color: #2b6cb0; -fx-text-fill: white;
+                                       -fx-font-weight: bold; -fx-font-size: 13px;
+                                       -fx-background-radius: 8; -fx-padding: 10 0; -fx-cursor: hand;"
+                                GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                        <Button text="✎  Modifier" maxWidth="Infinity"
+                                onAction="#modifierAbonnement"
+                                style="-fx-background-color: #d97706; -fx-text-fill: white;
+                                       -fx-font-weight: bold; -fx-font-size: 13px;
+                                       -fx-background-radius: 8; -fx-padding: 10 0; -fx-cursor: hand;"
+                                GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+                        <Button text="✕  Supprimer" maxWidth="Infinity"
+                                onAction="#supprimerAbonnement"
+                                style="-fx-background-color: #c53030; -fx-text-fill: white;
+                                       -fx-font-weight: bold; -fx-font-size: 13px;
+                                       -fx-background-radius: 8; -fx-padding: 10 0; -fx-cursor: hand;"
+                                GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                        <Button text="📥  Exporter CSV" maxWidth="Infinity"
+                                onAction="#exporterCSV"
+                                style="-fx-background-color: #276749; -fx-text-fill: white;
+                                       -fx-font-weight: bold; -fx-font-size: 13px;
+                                       -fx-background-radius: 8; -fx-padding: 10 0; -fx-cursor: hand;"
+                                GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                    </GridPane>
+                </VBox>
+
+            </VBox>
+
+            <!-- DROITE : TableView -->
+            <VBox spacing="0"
+                  style="-fx-background-color: #ffffff; -fx-background-radius: 12;">
+
+                <HBox style="-fx-background-color: #16213e; -fx-background-radius: 12 12 0 0;">
+                    <padding><Insets top="14" right="20" bottom="14" left="20"/></padding>
+                    <Label text="Liste des abonnements"
+                           style="-fx-text-fill: #e0e0e0; -fx-font-size: 13px; -fx-font-weight: bold;"/>
+                </HBox>
+
+                <TableView fx:id="tableAbonnement" VBox.vgrow="ALWAYS"
+                           style="-fx-background-color: transparent;
+                                  -fx-border-color: transparent; -fx-font-size: 13px;">
+                    <columns>
+                        <TableColumn fx:id="colId"     text="ID"         prefWidth="50"
+                                     style="-fx-alignment: CENTER;"/>
+                        <TableColumn fx:id="colMembre" text="Membre ID"  prefWidth="95"
+                                     style="-fx-alignment: CENTER;"/>
+                        <TableColumn fx:id="colType"   text="Type"       prefWidth="120"/>
+                        <TableColumn fx:id="colDebut"  text="Début"      prefWidth="105"
+                                     style="-fx-alignment: CENTER;"/>
+                        <TableColumn fx:id="colFin"    text="Fin"        prefWidth="105"
+                                     style="-fx-alignment: CENTER;"/>
+                        <TableColumn fx:id="colStatut" text="Statut"     prefWidth="95"
+                                     style="-fx-alignment: CENTER;"/>
+                        <TableColumn fx:id="colPrix"   text="Prix (MAD)" prefWidth="100"
+                                     style="-fx-alignment: CENTER;"/>
+                    </columns>
+                    <placeholder>
+                        <Label text="Aucun abonnement enregistré."
+                               style="-fx-text-fill: #a0aec0; -fx-font-size: 13px; -fx-font-style: italic;"/>
+                    </placeholder>
+                </TableView>
+
+            </VBox>
+
+        </SplitPane>
     </center>
+
+    <bottom>
+        <HBox style="-fx-background-color: #edf2f7;
+                     -fx-border-color: #e2e8f0 transparent transparent transparent;">
+            <padding><Insets top="7" right="20" bottom="7" left="20"/></padding>
+            <Label fx:id="lblStatusAbo" text="Prêt"
+                   style="-fx-text-fill: #718096; -fx-font-size: 11px;"/>
+        </HBox>
+    </bottom>
 
 </BorderPane>
