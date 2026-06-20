@@ -13,7 +13,7 @@ public class MembreDAO {
     // AJOUTER
     // =========================
     public void ajouter(Membre m) {
-        String sql = "INSERT INTO membre (nom, prenom, telephone, email, date_inscription, etat) VALUES (?,?,?,?,?,?)";
+        String sql = "INSERT INTO membre (nom, prenom, telephone, email, date_inscription) VALUES (?,?,?,?,?)";
 
         try (PreparedStatement ps = Database.getConnection().prepareStatement(sql)) {
 
@@ -22,7 +22,6 @@ public class MembreDAO {
             ps.setString(3, m.getTelephone());
             ps.setString(4, m.getEmail());
             ps.setDate(5, Date.valueOf(m.getDateInscription()));
-            ps.setString(6, m.getEtat());
 
             ps.executeUpdate();
 
@@ -35,7 +34,7 @@ public class MembreDAO {
     // MODIFIER
     // =========================
     public void modifier(Membre m) {
-        String sql = "UPDATE membre SET nom=?, prenom=?, telephone=?, email=?, date_inscription=?, etat=? WHERE id=?";
+        String sql = "UPDATE membre SET nom=?, prenom=?, telephone=?, email=?, date_inscription=? WHERE id=?";
 
         try (PreparedStatement ps = Database.getConnection().prepareStatement(sql)) {
 
@@ -44,7 +43,6 @@ public class MembreDAO {
             ps.setString(3, m.getTelephone());
             ps.setString(4, m.getEmail());
             ps.setDate(5, Date.valueOf(m.getDateInscription()));
-            ps.setString(6, m.getEtat());
             ps.setInt(7, m.getId());
 
             ps.executeUpdate();
@@ -147,9 +145,8 @@ public class MembreDAO {
                 rs.getString("prenom"),
                 rs.getString("telephone"),
                 rs.getString("email"),
-                rs.getDate("date_inscription").toLocalDate(),
-                rs.getString("etat"),
-                0.0 // intensité non stockée
+                rs.getDate("date_inscription").toLocalDate()
         );
     }
+
 }
