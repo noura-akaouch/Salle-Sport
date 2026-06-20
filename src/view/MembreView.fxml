@@ -7,164 +7,73 @@
 <BorderPane xmlns="http://javafx.com/javafx/17"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="controller.MembreController"
-            prefWidth="1000.0" prefHeight="620.0"
+            prefWidth="1000" prefHeight="620"
             style="-fx-background-color: #f4f6f9;">
 
+    <!-- TOP -->
     <top>
         <HBox alignment="CENTER_LEFT"
               style="-fx-background-color: #1a1a2e;">
-            <padding><Insets top="16" right="24" bottom="16" left="24"/></padding>
-            <Label text="👤  Gestion des Membres"
-                   style="-fx-text-fill: #ffffff; -fx-font-size: 20px; -fx-font-weight: bold;"/>
+            <padding>
+                <Insets top="16" right="24" bottom="16" left="24"/>
+            </padding>
+
+            <Label text="Gestion des Membres"
+                   style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold;"/>
         </HBox>
     </top>
 
+    <!-- CENTER -->
     <center>
-        <SplitPane dividerPositions="0.38"
-                   style="-fx-background-color: transparent; -fx-padding: 16;">
+        <SplitPane dividerPositions="0.38">
 
-            <!-- GAUCHE : Formulaire -->
-            <VBox spacing="0"
-                  style="-fx-background-color: #ffffff; -fx-background-radius: 12;">
+            <!-- LEFT -->
+            <VBox spacing="10" style="-fx-background-color: white;">
 
-                <HBox style="-fx-background-color: #16213e; -fx-background-radius: 12 12 0 0;">
-                    <padding><Insets top="14" right="20" bottom="14" left="20"/></padding>
-                    <Label text="Informations du membre"
-                           style="-fx-text-fill: #e0e0e0; -fx-font-size: 13px; -fx-font-weight: bold;"/>
-                </HBox>
+                <TextField fx:id="txtNom" promptText="Nom"/>
+                <TextField fx:id="txtPrenom" promptText="Prénom"/>
+                <TextField fx:id="txtTelephone" promptText="Téléphone"/>
+                <TextField fx:id="txtEmail" promptText="Email"/>
 
-                <VBox spacing="14">
-                    <padding><Insets top="22" right="22" bottom="10" left="22"/></padding>
+                <DatePicker fx:id="dpDateInscription"/>
 
-                    <!-- Nom -->
-                    <VBox spacing="5">
-                        <Label text="Nom"
-                               style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #4a5568;"/>
-                        <TextField fx:id="txtNom" promptText="Entrez le nom…"
-                                   style="-fx-background-color: #f7fafc; -fx-border-color: #e2e8f0;
-                                          -fx-border-radius: 7; -fx-background-radius: 7;
-                                          -fx-padding: 9 12; -fx-font-size: 13px;"
-                                   maxWidth="Infinity"/>
-                    </VBox>
+                <CheckBox fx:id="chkActif" text="Actif"/>
 
-                    <!-- Prénom -->
-                    <VBox spacing="5">
-                        <Label text="Prénom"
-                               style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #4a5568;"/>
-                        <TextField fx:id="txtPrenom" promptText="Entrez le prénom…"
-                                   style="-fx-background-color: #f7fafc; -fx-border-color: #e2e8f0;
-                                          -fx-border-radius: 7; -fx-background-radius: 7;
-                                          -fx-padding: 9 12; -fx-font-size: 13px;"
-                                   maxWidth="Infinity"/>
-                    </VBox>
+                <Slider fx:id="sliderIntensite" min="1" max="10" value="5"/>
 
-                    <!-- Téléphone -->
-                    <VBox spacing="5">
-                        <Label text="Téléphone"
-                               style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #4a5568;"/>
-                        <TextField fx:id="txtTelephone" promptText="Ex: 0661234567"
-                                   style="-fx-background-color: #f7fafc; -fx-border-color: #e2e8f0;
-                                          -fx-border-radius: 7; -fx-background-radius: 7;
-                                          -fx-padding: 9 12; -fx-font-size: 13px;"
-                                   maxWidth="Infinity"/>
-                    </VBox>
+                <Label fx:id="lblIntensite" text="5"/>
 
-                    <!-- Email -->
-                    <VBox spacing="5">
-                        <Label text="Email"
-                               style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #4a5568;"/>
-                        <TextField fx:id="txtEmail" promptText="Ex: nom@gmail.com"
-                                   style="-fx-background-color: #f7fafc; -fx-border-color: #e2e8f0;
-                                          -fx-border-radius: 7; -fx-background-radius: 7;
-                                          -fx-padding: 9 12; -fx-font-size: 13px;"
-                                   maxWidth="Infinity"/>
-                    </VBox>
-
-                    <!-- Date d'inscription -->
-                    <VBox spacing="5">
-                        <Label text="Date d'inscription"
-                               style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #4a5568;"/>
-                        <DatePicker fx:id="dpDateInscription" promptText="jj/mm/aaaa"
-                                    style="-fx-background-color: #f7fafc; -fx-border-color: #e2e8f0;
-                                           -fx-border-radius: 7; -fx-background-radius: 7;
-                                           -fx-font-size: 13px;"
-                                    maxWidth="Infinity"/>
-                    </VBox>
-
-                    <!-- Niveau d'intensité -->
-                    <VBox spacing="6">
-                        <HBox alignment="CENTER_LEFT" spacing="8">
-                            <Label text="Niveau d'intensité"
-                                   style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #4a5568;"/>
-                            <Label fx:id="lblIntensite" text="5"
-                                   style="-fx-background-color: #1a1a2e; -fx-text-fill: #ffffff;
-                                          -fx-background-radius: 20; -fx-padding: 2 8;
-                                          -fx-font-size: 11px; -fx-font-weight: bold;"/>
-                        </HBox>
-                        <HBox alignment="CENTER_LEFT" spacing="8">
-                            <Label text="1" style="-fx-font-size: 11px; -fx-text-fill: #a0aec0;"/>
-                            <Slider fx:id="sliderIntensite" min="1" max="10" value="5"
-                                    showTickMarks="true" majorTickUnit="1"
-                                    minorTickCount="0" snapToTicks="true"
-                                    HBox.hgrow="ALWAYS"/>
-                            <Label text="10" style="-fx-font-size: 11px; -fx-text-fill: #a0aec0;"/>
-                        </HBox>
-                    </VBox>
-
-                    <!-- Actif -->
-                    <HBox alignment="CENTER_LEFT"
-                          style="-fx-background-color: #f7fafc; -fx-border-color: #e2e8f0;
-                                 -fx-border-radius: 7; -fx-background-radius: 7; -fx-padding: 10 12;">
-                        <CheckBox fx:id="chkActif" text="Membre actif" selected="true"
-                                  style="-fx-font-size: 13px; -fx-text-fill: #2d3748;"/>
-                    </HBox>
-
-                </VBox>
-
-                <Region VBox.vgrow="ALWAYS"/>
-
-                <!-- Boutons -->
-                <VBox style="-fx-background-color: #f7fafc; -fx-background-radius: 0 0 12 12;">
-                    <padding><Insets top="16" right="20" bottom="18" left="20"/></padding>
-                    <GridPane hgap="10" vgap="10">
-                        <columnConstraints>
-                            <ColumnConstraints hgrow="ALWAYS" percentWidth="50"/>
-                            <ColumnConstraints hgrow="ALWAYS" percentWidth="50"/>
-                        </columnConstraints>
-                        <Button text="＋  Ajouter" maxWidth="Infinity"
-                                onAction="#handleAjouter"
-                                style="-fx-background-color: #2b6cb0; -fx-text-fill: white;
-                                       -fx-font-weight: bold; -fx-font-size: 13px;
-                                       -fx-background-radius: 8; -fx-padding: 10 0; -fx-cursor: hand;"
-                                GridPane.columnIndex="0" GridPane.rowIndex="0"/>
-                        <Button text="✎  Modifier" maxWidth="Infinity"
-                                onAction="#handleModifier"
-                                style="-fx-background-color: #d97706; -fx-text-fill: white;
-                                       -fx-font-weight: bold; -fx-font-size: 13px;
-                                       -fx-background-radius: 8; -fx-padding: 10 0; -fx-cursor: hand;"
-                                GridPane.columnIndex="1" GridPane.rowIndex="0"/>
-                        <Button text="✕  Supprimer" maxWidth="Infinity"
-                                onAction="#handleSupprimer"
-                                style="-fx-background-color: #c53030; -fx-text-fill: white;
-                                       -fx-font-weight: bold; -fx-font-size: 13px;
-                                       -fx-background-radius: 8; -fx-padding: 10 0; -fx-cursor: hand;"
-                                GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-                        <Button text="↺  Réinitialiser" maxWidth="Infinity"
-                                onAction="#handleReset"
-                                style="-fx-background-color: #4a5568; -fx-text-fill: white;
-                                       -fx-font-weight: bold; -fx-font-size: 13px;
-                                       -fx-background-radius: 8; -fx-padding: 10 0; -fx-cursor: hand;"
-                                GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-                    </GridPane>
-                </VBox>
+                <Button text="Ajouter" onAction="#handleAjouter"/>
+                <Button text="Modifier" onAction="#handleModifier"/>
+                <Button text="Supprimer" onAction="#handleSupprimer"/>
+                <Button text="Reset" onAction="#handleReset"/>
 
             </VBox>
 
-            <!-- DROITE : TableView -->
-            <VBox spacing="0"
-                  style="-fx-background-color: #ffffff; -fx-background-radius: 12;">
+            <!-- RIGHT -->
+            <VBox>
 
-                <HBox style="-fx-background-color: #16213e; -fx-background-radius: 12 12 0 0;">
-                    <padding><Insets top="14" right="20" bottom="14" left="20"/></padding>
-                    <Label text="Liste des membres"
-                           style="-fx-text-fill: #e0e0e0;" />
+                <Label text="Liste des membres"
+                       style="-fx-background-color:#16213e; -fx-text-fill:white; -fx-padding:10;"/>
+
+                <TableView fx:id="tableMembres" VBox.vgrow="ALWAYS">
+
+                    <columns>
+                        <TableColumn fx:id="colId" text="ID"/>
+                        <TableColumn fx:id="colNom" text="Nom"/>
+                        <TableColumn fx:id="colPrenom" text="Prénom"/>
+                        <TableColumn fx:id="colTelephone" text="Téléphone"/>
+                        <TableColumn fx:id="colEmail" text="Email"/>
+                        <TableColumn fx:id="colDate" text="Date"/>
+                        <TableColumn fx:id="colIntensite" text="Intensité"/>
+                        <TableColumn fx:id="colActif" text="Actif"/>
+                    </columns>
+
+                </TableView>
+
+            </VBox>
+
+        </SplitPane>
+    </center>
+
+</BorderPane>
