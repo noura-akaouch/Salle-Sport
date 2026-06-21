@@ -29,6 +29,9 @@ public class MembreController implements Initializable {
     @FXML private TableColumn<Membre, String>  colTelephone;
     @FXML private TableColumn<Membre, String>  colEmail;
     @FXML private TableColumn<Membre, LocalDate> colDate;
+    @FXML private CheckBox chkActif;
+    @FXML private Slider sliderIntensite;
+    @FXML private Label lblIntensite;
 
     private final MembreDAO membreDAO = new MembreDAO();
     private final ObservableList<Membre> list = FXCollections.observableArrayList();
@@ -36,6 +39,9 @@ public class MembreController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        lblIntensite.textProperty().bind(
+                sliderIntensite.valueProperty().asString("%.0f")
+        );
         configurerColonnes();
         configurerSelectionTable();
         charger();
