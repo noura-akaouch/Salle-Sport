@@ -7,28 +7,16 @@
 <BorderPane xmlns="http://javafx.com/javafx/17"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="controller.MembreController"
-            prefWidth="1000" prefHeight="620"
-            style="-fx-background-color: #f4f6f9;">
+            prefWidth="1000" prefHeight="620">
 
-    <!-- TOP -->
-    <top>
-        <HBox alignment="CENTER_LEFT"
-              style="-fx-background-color: #1a1a2e;">
-            <padding>
-                <Insets top="16" right="24" bottom="16" left="24"/>
-            </padding>
-
-            <Label text="Gestion des Membres"
-                   style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold;"/>
-        </HBox>
-    </top>
-
-    <!-- CENTER -->
     <center>
         <SplitPane dividerPositions="0.38">
 
-            <!-- LEFT -->
-            <VBox spacing="10" style="-fx-background-color: white;">
+            <!-- FORM -->
+            <VBox spacing="10" style="-fx-background-color:white;">
+                <padding>
+                    <Insets top="16" right="16" bottom="16" left="16"/>
+                </padding>
 
                 <TextField fx:id="txtNom" promptText="Nom"/>
                 <TextField fx:id="txtPrenom" promptText="Prénom"/>
@@ -39,25 +27,26 @@
 
                 <CheckBox fx:id="chkActif" text="Actif"/>
 
-                <Slider fx:id="sliderIntensite" min="1" max="10" value="5"/>
+                <Label text="Intensité"/>
+                <Slider fx:id="sliderIntensite" min="1" max="10"/>
 
-                <Slider fx:id="sliderIntensite" min="1" max="10" value="5"/>
-                <Label fx:id="lblIntensite" text="5 "/>
+                <Label fx:id="lblIntensite"/>
 
-                <Button text="Ajouter" onAction="#handleAjouter"/>
-                <Button text="Modifier" onAction="#handleModifier"/>
-                <Button text="Supprimer" onAction="#handleSupprimer"/>
-                <Button text="Reset" onAction="#handleReset"/>
+                <HBox spacing="10">
+
+                    <Button text="Ajouter" onAction="#handleAjouter" styleClass="btn-ajouter"/>
+                    <Button text="Modifier" onAction="#handleModifier" styleClass="btn-modifier"/>
+                    <Button text="Supprimer" onAction="#handleSupprimer" styleClass="btn-supprimer"/>
+                    <Button text="Reset" onAction="#handleReset" styleClass="btn-reset"/>
+
+                </HBox>
 
             </VBox>
 
-            <!-- RIGHT -->
+            <!-- TABLE -->
             <VBox>
 
-                <Label text="Liste des membres"
-                       style="-fx-background-color:#16213e; -fx-text-fill:white; -fx-padding:10;"/>
-
-                <TableView fx:id="tableMembres" VBox.vgrow="ALWAYS">
+                <TableView fx:id="tableMembres">
 
                     <columns>
                         <TableColumn fx:id="colId" text="ID"/>
@@ -66,8 +55,7 @@
                         <TableColumn fx:id="colTelephone" text="Téléphone"/>
                         <TableColumn fx:id="colEmail" text="Email"/>
                         <TableColumn fx:id="colDate" text="Date"/>
-                        <TableColumn fx:id="colIntensite" text="Intensité"/>
-                        <TableColumn fx:id="colActif" text="Actif"/>
+                        <TableColumn fx:id="colActif" text="État"/>
                     </columns>
 
                 </TableView>

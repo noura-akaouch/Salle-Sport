@@ -1,21 +1,21 @@
-package model;
+
+        package model;
 
 import java.time.LocalDate;
 
 public class Abonnement {
 
     private int       id;
-    private int       membreId;
+    private int       membreId;       // ✅ int, pas String
     private String    typeAbonnement;
     private LocalDate dateDebut;
     private LocalDate dateFin;
     private String    statut;
     private double    prix;
 
-    public Abonnement() {}
-
     public Abonnement(int id, int membreId, String typeAbonnement,
-                      LocalDate dateDebut, LocalDate dateFin, String statut, double prix) {
+                      LocalDate dateDebut, LocalDate dateFin,
+                      String statut, double prix) {
         this.id             = id;
         this.membreId       = membreId;
         this.typeAbonnement = typeAbonnement;
@@ -26,7 +26,7 @@ public class Abonnement {
     }
 
     public int       getId()             { return id; }
-    public int       getMembreId()       { return membreId; }
+    public int       getMembreId()       { return membreId; }   // ✅ retourne int
     public String    getTypeAbonnement() { return typeAbonnement; }
     public LocalDate getDateDebut()      { return dateDebut; }
     public LocalDate getDateFin()        { return dateFin; }
@@ -34,10 +34,16 @@ public class Abonnement {
     public double    getPrix()           { return prix; }
 
     public void setId(int id)                          { this.id = id; }
-    public void setMembreId(int membreId)              { this.membreId = membreId; }
+    public void setMembreId(int membreId)              { this.membreId = membreId; }  // ✅ int
     public void setTypeAbonnement(String t)            { this.typeAbonnement = t; }
     public void setDateDebut(LocalDate dateDebut)      { this.dateDebut = dateDebut; }
     public void setDateFin(LocalDate dateFin)          { this.dateFin = dateFin; }
     public void setStatut(String statut)               { this.statut = statut; }
     public void setPrix(double prix)                   { this.prix = prix; }
+
+    @Override
+    public String toString() {
+        return "Abonnement{id=" + id + ", membreId=" + membreId +
+                ", type=" + typeAbonnement + ", statut=" + statut + "}";
+    }
 }

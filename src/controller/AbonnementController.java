@@ -4,6 +4,7 @@ import dao.AbonnementDAO;
 import dao.MembreDAO;
 import model.Abonnement;
 import model.Membre;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -26,7 +27,7 @@ public class AbonnementController {
     @FXML private TableView<Abonnement> tableAbonnement;
 
     @FXML private TableColumn<Abonnement, Integer>   colId;
-    @FXML private TableColumn<Abonnement, String>    colMembre;
+    @FXML private TableColumn<Abonnement, String>    colMembre;   // ✅ String via lambda
     @FXML private TableColumn<Abonnement, String>    colType;
     @FXML private TableColumn<Abonnement, LocalDate> colDebut;
     @FXML private TableColumn<Abonnement, LocalDate> colFin;
@@ -51,7 +52,12 @@ public class AbonnementController {
 
     private void configurerColonnes() {
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        colMembre.setCellValueFactory(new PropertyValueFactory<>("membreId"));
+
+        // ✅ membreId est int → on le convertit en String via lambda
+        colMembre.setCellValueFactory(cellData ->
+                new SimpleStringProperty(String.valueOf(cellData.getValue().getMembreId()))
+        );
+
         colType.setCellValueFactory(new PropertyValueFactory<>("typeAbonnement"));
         colDebut.setCellValueFactory(new PropertyValueFactory<>("dateDebut"));
         colFin.setCellValueFactory(new PropertyValueFactory<>("dateFin"));
@@ -75,7 +81,9 @@ public class AbonnementController {
             membres = membreDAO.afficherTous();
             cmbMembre.getItems().clear();
             for (Membre m : membres) {
-                cmbMembre.getItems().add(m.getId() + " - " + m.getNom() + " " + m.getPrenom());
+                cmbMembre.getItems().add(
+                        m.getId() + " - " + m.getNom() + " " + m.getPrenom()
+                );
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -87,7 +95,8 @@ public class AbonnementController {
             abonnementList.setAll(abonnementDAO.afficherTous());
             tableAbonnement.setItems(abonnementList);
         } catch (Exception e) {
-            showAlert(Alert.AlertType.ERROR, "Erreur", "Impossible de charger les abonnements.");
+            showAlert(Alert.AlertType.ERROR, "Erreur",
+                    "Impossible de charger les abonnements.");
         }
     }
 
@@ -109,37 +118,43 @@ public class AbonnementController {
             reinitialiserFormulaire();
             showAlert(Alert.AlertType.INFORMATION, "Succès", "Abonnement ajouté.");
         } catch (Exception e) {
-            showAlert(Alert.AlertType.ERROR, "Erreur", "Impossible d'ajouter : " + e.getMessage());
+            showAlert(Alert.AlertType.ERROR, "Erreur",
+                    "Impossible d'ajouter : " + e.getMessage());
         }
     }
 
     @FXML
     public void modifierAbonnement() {
         if (abonnementSelectionne == null) {
-            showAlert(Alert.AlertType.WARNING, "Aucune sélection", "Sélectionnez un abonnement.");
+            showAlert(Alert.AlertType.WARNING, "Aucune sélection",
+                    "Sélectionnez un abonnement.");
             return;
         }
         if (!validerFormulaire()) return;
+
         abonnementSelectionne.setMembreId(extraireMembreId());
         abonnementSelectionne.setTypeAbonnement(cmbType.getValue());
         abonnementSelectionne.setDateDebut(dateDebut.getValue());
         abonnementSelectionne.setDateFin(dateFin.getValue());
         abonnementSelectionne.setStatut(cmbStatut.getValue());
         abonnementSelectionne.setPrix(calculerPrix(cmbType.getValue()));
+
         try {
             abonnementDAO.modifier(abonnementSelectionne);
             chargerAbonnements();
             reinitialiserFormulaire();
             showAlert(Alert.AlertType.INFORMATION, "Succès", "Abonnement modifié.");
         } catch (Exception e) {
-            showAlert(Alert.AlertType.ERROR, "Erreur", "Impossible de modifier : " + e.getMessage());
+            showAlert(Alert.AlertType.ERROR, "Erreur",
+                    "Impossible de modifier : " + e.getMessage());
         }
     }
 
     @FXML
     public void supprimerAbonnement() {
         if (abonnementSelectionne == null) {
-            showAlert(Alert.AlertType.WARNING, "Aucune sélection", "Sélectionnez un abonnement.");
+            showAlert(Alert.AlertType.WARNING, "Aucune sélection",
+                    "Sélectionnez un abonnement.");
             return;
         }
         Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
@@ -153,7 +168,8 @@ public class AbonnementController {
                     chargerAbonnements();
                     reinitialiserFormulaire();
                 } catch (Exception e) {
-                    showAlert(Alert.AlertType.ERROR, "Erreur", "Impossible de supprimer : " + e.getMessage());
+                    showAlert(Alert.AlertType.ERROR, "Erreur",
+                            "Impossible de supprimer : " + e.getMessage());
                 }
             }
         });
@@ -163,26 +179,34 @@ public class AbonnementController {
     public void exporterCSV() {
         FileChooser fc = new FileChooser();
         fc.setTitle("Enregistrer le fichier CSV");
-        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV", "*.csv"));
+        fc.getExtensionFilters().add(
+                new FileChooser.ExtensionFilter("CSV", "*.csv")
+        );
         fc.setInitialFileName("abonnements.csv");
-        java.io.File fichier = fc.showSaveDialog(tableAbonnement.getScene().getWindow());
+        java.io.File fichier = fc.showSaveDialog(
+                tableAbonnement.getScene().getWindow()
+        );
         if (fichier == null) return;
         try (PrintWriter pw = new PrintWriter(new FileWriter(fichier))) {
             pw.println("ID,Membre ID,Type,Date début,Date fin,Statut,Prix");
             for (Abonnement a : abonnementList) {
                 pw.printf("%d,%d,%s,%s,%s,%s,%.2f%n",
                         a.getId(), a.getMembreId(), a.getTypeAbonnement(),
-                        a.getDateDebut(), a.getDateFin(), a.getStatut(), a.getPrix());
+                        a.getDateDebut(), a.getDateFin(),
+                        a.getStatut(), a.getPrix());
             }
-            showAlert(Alert.AlertType.INFORMATION, "Export réussi", "Fichier CSV enregistré.");
+            showAlert(Alert.AlertType.INFORMATION, "Export réussi",
+                    "Fichier CSV enregistré.");
         } catch (Exception e) {
-            showAlert(Alert.AlertType.ERROR, "Erreur", "Export échoué : " + e.getMessage());
+            showAlert(Alert.AlertType.ERROR, "Erreur",
+                    "Export échoué : " + e.getMessage());
         }
     }
 
     private void remplirFormulaire(Abonnement a) {
+        // ✅ String.valueOf() pour comparer int avec String
         for (String item : cmbMembre.getItems()) {
-            if (item.startsWith(a.getMembreId() + " -")) {
+            if (item.startsWith(String.valueOf(a.getMembreId()) + " -")) {
                 cmbMembre.setValue(item);
                 break;
             }
@@ -205,14 +229,19 @@ public class AbonnementController {
 
     private boolean validerFormulaire() {
         StringBuilder erreurs = new StringBuilder();
-        if (cmbMembre.getValue() == null)  erreurs.append("• Sélectionnez un membre.\n");
-        if (cmbType.getValue() == null)    erreurs.append("• Sélectionnez un type.\n");
-        if (dateDebut.getValue() == null)  erreurs.append("• La date de début est obligatoire.\n");
-        if (dateFin.getValue() == null)    erreurs.append("• La date de fin est obligatoire.\n");
+        if (cmbMembre.getValue() == null)
+            erreurs.append("• Sélectionnez un membre.\n");
+        if (cmbType.getValue() == null)
+            erreurs.append("• Sélectionnez un type.\n");
+        if (dateDebut.getValue() == null)
+            erreurs.append("• La date de début est obligatoire.\n");
+        if (dateFin.getValue() == null)
+            erreurs.append("• La date de fin est obligatoire.\n");
         if (dateDebut.getValue() != null && dateFin.getValue() != null
                 && !dateFin.getValue().isAfter(dateDebut.getValue()))
             erreurs.append("• La date de fin doit être après la date de début.\n");
-        if (cmbStatut.getValue() == null)  erreurs.append("• Sélectionnez un statut.\n");
+        if (cmbStatut.getValue() == null)
+            erreurs.append("• Sélectionnez un statut.\n");
         if (!erreurs.isEmpty()) {
             showAlert(Alert.AlertType.WARNING, "Champs invalides", erreurs.toString());
             return false;

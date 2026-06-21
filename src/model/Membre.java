@@ -10,21 +10,22 @@ public class Membre {
     private String    telephone;
     private String    email;
     private LocalDate dateInscription;
+    private String    etat;
 
     public Membre(int id, String nom, String prenom, String telephone,
-                  String email, LocalDate dateInscription) {
+                  String email, LocalDate dateInscription, String etat) {
         this.id              = id;
         this.nom             = nom;
         this.prenom          = prenom;
         this.telephone       = telephone;
         this.email           = email;
         this.dateInscription = dateInscription;
+        this.etat            = etat;
     }
 
-    // Constructeur sans id (INSERT)
     public Membre(String nom, String prenom, String telephone, String email,
-                  LocalDate dateInscription) {
-        this(0, nom, prenom, telephone, email, dateInscription);
+                  LocalDate dateInscription, String etat) {
+        this(0, nom, prenom, telephone, email, dateInscription, etat);
     }
 
     public int       getId()              { return id; }
@@ -33,7 +34,7 @@ public class Membre {
     public String    getTelephone()       { return telephone; }
     public String    getEmail()           { return email; }
     public LocalDate getDateInscription() { return dateInscription; }
-    // colonne "Actif" dans le FXML utilise property="actif"
+    public String    getEtat()            { return etat; }
 
     public void setId(int id)                      { this.id = id; }
     public void setNom(String nom)                 { this.nom = nom; }
@@ -41,6 +42,7 @@ public class Membre {
     public void setTelephone(String telephone)     { this.telephone = telephone; }
     public void setEmail(String email)             { this.email = email; }
     public void setDateInscription(LocalDate date) { this.dateInscription = date; }
+    public void setEtat(String etat)               { this.etat = etat; }
 
     @Override
     public String toString() { return prenom + " " + nom; }

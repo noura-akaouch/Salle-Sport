@@ -1,5 +1,4 @@
 package controller;
-
 import dao.MembreDAO;
 import model.Membre;
 import javafx.collections.FXCollections;
@@ -15,26 +14,28 @@ import java.util.ResourceBundle;
 
 public class MembreController implements Initializable {
 
-    @FXML private TextField txtNom;
-    @FXML private TextField txtPrenom;
-    @FXML private TextField txtTelephone;
-    @FXML private TextField txtEmail;
+    @FXML private TextField  txtNom;
+    @FXML private TextField  txtPrenom;
+    @FXML private TextField  txtTelephone;
+    @FXML private TextField  txtEmail;
     @FXML private DatePicker dpDateInscription;
-    @FXML private Label lblStatus;
+    @FXML private CheckBox   chkActif;
+    @FXML private Slider     sliderIntensite;
+    @FXML private Label      lblIntensite;
+    @FXML private Label      lblStatus;
 
-    @FXML private TableView<Membre> tableMembres;
-    @FXML private TableColumn<Membre, Integer> colId;
-    @FXML private TableColumn<Membre, String>  colNom;
-    @FXML private TableColumn<Membre, String>  colPrenom;
-    @FXML private TableColumn<Membre, String>  colTelephone;
-    @FXML private TableColumn<Membre, String>  colEmail;
+    @FXML private TableView<Membre>          tableMembres;
+    @FXML private TableColumn<Membre, Integer>   colId;
+    @FXML private TableColumn<Membre, String>    colNom;
+    @FXML private TableColumn<Membre, String>    colPrenom;
+    @FXML private TableColumn<Membre, String>    colTelephone;
+    @FXML private TableColumn<Membre, String>    colEmail;
     @FXML private TableColumn<Membre, LocalDate> colDate;
-    @FXML private CheckBox chkActif;
-    @FXML private Slider sliderIntensite;
-    @FXML private Label lblIntensite;
+    @FXML private TableColumn<Membre, String>    colActif;      // ✅ ajouté
+    // colIntensite supprimée : le slider est un outil de saisie, pas une colonne BDD
 
-    private final MembreDAO membreDAO = new MembreDAO();
-    private final ObservableList<Membre> list = FXCollections.observableArrayList();
+    private final MembreDAO              membreDAO = new MembreDAO();
+    private final ObservableList<Membre> list      = FXCollections.observableArrayList();
     private Membre selected;
 
     @Override
@@ -54,6 +55,7 @@ public class MembreController implements Initializable {
         colTelephone.setCellValueFactory(new PropertyValueFactory<>("telephone"));
         colEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
         colDate.setCellValueFactory(new PropertyValueFactory<>("dateInscription"));
+        colActif.setCellValueFactory(new PropertyValueFactory<>("etat")); // ✅ ajouté
     }
 
     private void configurerSelectionTable() {
@@ -73,7 +75,8 @@ public class MembreController implements Initializable {
             tableMembres.setItems(list);
             setStatus("Membres chargés : " + list.size());
         } catch (Exception e) {
-            showAlert(Alert.AlertType.ERROR, "Erreur", "Impossible de charger les membres : " + e.getMessage());
+            showAlert(Alert.AlertType.ERROR, "Erreur",
+                    "Impossible de charger les membres : " + e.getMessage());
         }
     }
 
@@ -81,12 +84,15 @@ public class MembreController implements Initializable {
     private void handleAjouter() {
         if (!validerFormulaire()) return;
 
+        String etat = chkActif.isSelected() ? "Actif" : "Inactif"; // ✅ lu depuis checkbox
+
         Membre m = new Membre(
                 txtNom.getText().trim(),
                 txtPrenom.getText().trim(),
                 txtTelephone.getText().trim(),
                 txtEmail.getText().trim(),
-                dpDateInscription.getValue()
+                dpDateInscription.getValue(),
+                etat
         );
 
         try {
@@ -95,14 +101,16 @@ public class MembreController implements Initializable {
             reinitialiserFormulaire();
             showAlert(Alert.AlertType.INFORMATION, "Succès", "Membre ajouté avec succès.");
         } catch (Exception e) {
-            showAlert(Alert.AlertType.ERROR, "Erreur", "Impossible d'ajouter : " + e.getMessage());
+            showAlert(Alert.AlertType.ERROR, "Erreur",
+                    "Impossible d'ajouter : " + e.getMessage());
         }
     }
 
     @FXML
     private void handleModifier() {
         if (selected == null) {
-            showAlert(Alert.AlertType.WARNING, "Aucune sélection", "Veuillez sélectionner un membre à modifier.");
+            showAlert(Alert.AlertType.WARNING, "Aucune sélection",
+                    "Veuillez sélectionner un membre à modifier.");
             return;
         }
         if (!validerFormulaire()) return;
@@ -112,6 +120,7 @@ public class MembreController implements Initializable {
         selected.setTelephone(txtTelephone.getText().trim());
         selected.setEmail(txtEmail.getText().trim());
         selected.setDateInscription(dpDateInscription.getValue());
+        selected.setEtat(chkActif.isSelected() ? "Actif" : "Inactif"); // ✅ ajouté
 
         try {
             membreDAO.modifier(selected);
@@ -119,14 +128,16 @@ public class MembreController implements Initializable {
             reinitialiserFormulaire();
             showAlert(Alert.AlertType.INFORMATION, "Succès", "Membre modifié avec succès.");
         } catch (Exception e) {
-            showAlert(Alert.AlertType.ERROR, "Erreur", "Impossible de modifier : " + e.getMessage());
+            showAlert(Alert.AlertType.ERROR, "Erreur",
+                    "Impossible de modifier : " + e.getMessage());
         }
     }
 
     @FXML
     private void handleSupprimer() {
         if (selected == null) {
-            showAlert(Alert.AlertType.WARNING, "Aucune sélection", "Veuillez sélectionner un membre à supprimer.");
+            showAlert(Alert.AlertType.WARNING, "Aucune sélection",
+                    "Veuillez sélectionner un membre à supprimer.");
             return;
         }
 
@@ -141,7 +152,8 @@ public class MembreController implements Initializable {
                     charger();
                     reinitialiserFormulaire();
                 } catch (Exception e) {
-                    showAlert(Alert.AlertType.ERROR, "Erreur", "Impossible de supprimer : " + e.getMessage());
+                    showAlert(Alert.AlertType.ERROR, "Erreur",
+                            "Impossible de supprimer : " + e.getMessage());
                 }
             }
         });
@@ -159,6 +171,7 @@ public class MembreController implements Initializable {
         txtTelephone.setText(m.getTelephone());
         txtEmail.setText(m.getEmail());
         dpDateInscription.setValue(m.getDateInscription());
+        chkActif.setSelected("Actif".equals(m.getEtat())); // ✅ ajouté
     }
 
     private void reinitialiserFormulaire() {
@@ -167,6 +180,7 @@ public class MembreController implements Initializable {
         txtTelephone.clear();
         txtEmail.clear();
         dpDateInscription.setValue(null);
+        chkActif.setSelected(true); // ✅ défaut = Actif
         selected = null;
         tableMembres.getSelectionModel().clearSelection();
     }
