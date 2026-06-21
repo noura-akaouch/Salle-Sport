@@ -9,9 +9,7 @@ import java.util.List;
 
 public class MembreDAO {
 
-    // =========================
-    // AJOUTER
-    // =========================
+
     public void ajouter(Membre m) {
         String sql = "INSERT INTO membre (nom, prenom, telephone, email, date_inscription) VALUES (?,?,?,?,?)";
 
@@ -30,9 +28,7 @@ public class MembreDAO {
         }
     }
 
-    // =========================
-    // MODIFIER
-    // =========================
+    
     public void modifier(Membre m) {
         String sql = "UPDATE membre SET nom=?, prenom=?, telephone=?, email=?, date_inscription=? WHERE id=?";
 
@@ -52,9 +48,7 @@ public class MembreDAO {
         }
     }
 
-    // =========================
-    // SUPPRIMER
-    // =========================
+
     public void supprimer(int id) {
         String sql = "DELETE FROM membre WHERE id=?";
 
@@ -68,9 +62,7 @@ public class MembreDAO {
         }
     }
 
-    // =========================
-    // AFFICHER TOUS
-    // =========================
+
     public List<Membre> afficherTous() {
         List<Membre> liste = new ArrayList<>();
         String sql = "SELECT * FROM membre";
@@ -89,9 +81,7 @@ public class MembreDAO {
         return liste;
     }
 
-    // =========================
-    // CHERCHER PAR ID
-    // =========================
+
     public Membre chercherParId(int id) {
         String sql = "SELECT * FROM membre WHERE id=?";
 
@@ -110,9 +100,7 @@ public class MembreDAO {
         return null;
     }
 
-    // =========================
-    // RECHERCHER PAR NOM
-    // =========================
+
     public List<Membre> rechercherParNom(String motCle) {
         List<Membre> liste = new ArrayList<>();
         String sql = "SELECT * FROM membre WHERE nom LIKE ? OR prenom LIKE ?";
@@ -135,9 +123,7 @@ public class MembreDAO {
         return liste;
     }
 
-    // =========================
-    // MAPPING RESULTSET -> OBJET
-    // =========================
+
     private Membre mapRow(ResultSet rs) throws SQLException {
         return new Membre(
                 rs.getInt("id"),

@@ -41,7 +41,8 @@
 
                 <Slider fx:id="sliderIntensite" min="1" max="10" value="5"/>
 
-                <Label fx:id="lblIntensite" text="5"/>
+                <Slider fx:id="sliderIntensite" min="1" max="10" value="5"/>
+                <Label fx:id="lblIntensite" text="5 "/>
 
                 <Button text="Ajouter" onAction="#handleAjouter"/>
                 <Button text="Modifier" onAction="#handleModifier"/>
