@@ -1,37 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
 <BorderPane xmlns="http://javafx.com/javafx/17"
             xmlns:fx="http://javafx.com/fxml/1"
-            prefWidth="1100" prefHeight="700"
-            stylesheets="@/resources/style.css">
+            prefWidth="1100.0" prefHeight="680.0"
+            style="-fx-background-color: #f4f6f9;">
 
     <top>
-        <Label text="🏋 SportManager"
-               style="-fx-font-size:20px;
-                      -fx-text-fill:white;
-                      -fx-padding:12;
-                      -fx-background-color:#1a1a2e;"/>
+        <HBox alignment="CENTER_LEFT"
+              style="-fx-background-color: #1a1a2e;">
+            <padding><Insets top="16" right="28" bottom="16" left="28"/></padding>
+            <Label text="🏋️  SportManager — Salle de Sport"
+                   style="-fx-text-fill: #ffffff; -fx-font-size: 20px; -fx-font-weight: bold;"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Label text="v1.0"
+                   style="-fx-text-fill: #a0aec0; -fx-font-size: 12px;"/>
+        </HBox>
     </top>
 
     <center>
-        <TabPane tabClosingPolicy="UNAVAILABLE">
+        <TabPane tabClosingPolicy="UNAVAILABLE"
+                 style="-fx-tab-min-height: 42px; -fx-font-size: 13px;">
+            <padding><Insets top="12" right="16" bottom="16" left="16"/></padding>
 
-            <Tab text="Dashboard">
-                <fx:include source="DashboardView.fxml"/>
-            </Tab>
-
-            <Tab text="Membres">
+            <Tab text="👤  Membres">
                 <fx:include source="MembreView.fxml"/>
             </Tab>
 
-            <Tab text="Abonnements">
+            <Tab text="📋  Abonnements">
                 <fx:include source="AbonnementView.fxml"/>
+            </Tab>
+
+            <Tab text="📊  Dashboard">
+                <fx:include source="DashboardView.fxml"/>
             </Tab>
 
         </TabPane>
     </center>
+
+    <bottom>
+        <HBox alignment="CENTER_LEFT"
+              style="-fx-background-color: #edf2f7;
+                     -fx-border-color: #e2e8f0 transparent transparent transparent;">
+            <padding><Insets top="7" right="20" bottom="7" left="20"/></padding>
+            <Label text="● Application prête"
+                   style="-fx-text-fill: #48bb78; -fx-font-size: 11px; -fx-font-weight: bold;"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Label text="SportManager © 2025"
+                   style="-fx-text-fill: #a0aec0; -fx-font-size: 11px;"/>
+        </HBox>
+    </bottom>
 
 </BorderPane>
